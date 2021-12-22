@@ -24,30 +24,40 @@ namespace LinqExercise
              */
 
             //Print the Sum and Average of numbers
-
+            Console.WriteLine(numbers.Sum());
+            Console.WriteLine(numbers.Average());
             //Order numbers in ascending order and decsending order. Print each to console.
-
+            Console.WriteLine(numbers.OrderBy(x => x));
+            Console.WriteLine(numbers.OrderByDescending(x => x));
             //Print to the console only the numbers greater than 6
-
+            Console.WriteLine(numbers.Where(x => x >= 6));
             //Order numbers in any order (acsending or desc) but only print 4 of them **foreach loop only!**
+            var orderedNumbers = numbers.OrderBy(x => x);
+            foreach (var num in numbers.Take(4))
+            {
+                Console.WriteLine(num);
+            }
 
             //Change the value at index 4 to your age, then print the numbers in decsending order
-
+            numbers[4] = 24;
+            numbers.OrderByDescending(x => x).ToList().ForEach(x => Console.WriteLine(x));
             // List of employees ***Do not remove this***
             var employees = CreateEmployees();
 
             //Print all the employees' FullName properties to the console only if their FirstName starts with a C OR an S.
             //Order this in acesnding order by FirstName.
-
+            employees.Where(employee => employee.FirstName[0] == ('C') || employee.FirstName[0] == ('S')).OrderBy(x => x.FirstName.Length).ToList().ForEach(x => Console.WriteLine(x.FirstName));
             //Print all the employees' FullName and Age who are over the age 26 to the console.
             //Order this by Age first and then by FirstName in the same result.
-
+            Console.WriteLine($"{employees.Where(x => x.Age > 26)}");
             //Print the Sum and then the Average of the employees' YearsOfExperience
             //if their YOE is less than or equal to 10 AND Age is greater than 35
-
-            //Add an employee to the end of the list without using employees.Add()
-
+            Console.WriteLine(employees.Where(x => x.YearsOfExperience <= 10 && x.Age > 35).Sum(x => x.YearsOfExperience));
+            Console.WriteLine(employees.Where(x => x.YearsOfExperience <= 10 && x.Age > 35).Average(x => x.YearsOfExperience));
             
+            //Add an employee to the end of the list without using employees.Add()
+            employees.Append(new Employee("John", "Doe", 36, 7));
+
             Console.WriteLine();
 
             Console.ReadLine();
